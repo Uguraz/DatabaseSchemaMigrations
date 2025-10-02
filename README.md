@@ -1,14 +1,21 @@
-# Database Schema Migrations
+# Database Schema Migrations – Student Management
 
-Dette projekt er en øvelsesopgave i at arbejde med database migrations i .NET 8.
+Dette repo demonstrerer database schema migrations i .NET 8 med **Entity Framework Core** i et *Student Management System*.
 
-## Indhold
-- ASP.NET Core Web API (`StudentManagement.Api`)
-- Entity Framework Core (SQLite)
-- Change-based migrationer
-- Senere: State-based migrationer
+---
 
-## Kom i gang
-1. Klon repoet
-2. Kør `dotnet restore`
-3. Kør `dotnet run --project src/StudentManagement.Api`
+## Formål
+Projektet viser:
+- Hvordan man bruger **change-based migrations** (trin-for-trin via `dotnet ef migrations`)
+- Hvordan man arbejder med **feature branches + Pull Requests** for at versionere ændringer
+- Hvordan man holder styr på en **evolution af database schemaet** gennem git-historik
+- Hvordan controllers og API’er bindes til det udviklende schema
+
+---
+
+## Setup
+
+1. Klon projektet:
+   ```bash
+   git clone https://github.com/Uguraz/DatabaseSchemaMigrations.git
+   cd DatabaseSchemaMigrations/src/StudentManagement.Api
