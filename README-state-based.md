@@ -1,34 +1,38 @@
-# Database Schema Migrations – Student Management
+﻿# State-based migrations (SQL scripts) – Student Management
 
-Dette repo demonstrerer database schema migrations i .NET 8 med **Entity Framework Core** i et *Student Management System*.
+Denne README beskriver en **state-based** strategi som alternativ til EF’s change-based.
+I en state-based tilgang versionerer vi **hele skemaets ønskede tilstand** som SQL-scripts og udruller ved at anvende det seneste *state* (evt. som diff mod nuværende).
+
+> I dette projekt kan state-based demonstreres med SQLite via simple scripts.
+
+---
+
+## Hvorfor state-based?
+-  **Single source of truth = schema as code**: ét samlet skema pr. version (nemt at læse/validere).
+-  **Databasteam uden ORM**: DBA’er kan reviewe/ejerskab i ren SQL.
+-  **Let at bootstrappe**: nyt miljø = kør *v seneste* skema + seed.
 
 ---
 
-## Formål
-Projektet viser:
-- Hvordan man bruger **change-based migrations** (trin-for-trin via `dotnet ef migrations`)
-- Hvordan man arbejder med **feature branches + Pull Requests** for at versionere ændringer
-- Hvordan man holder styr på en **evolution af database schemaet** gennem git-historik
-- Hvordan controllers og API’er bindes til det udviklende schema
-
----
+## Valg vi tog – og hvorfor
+- Fx SQLite, feature branches, seed defaults (change-based).
+- Fx SQL scripts, review i ren SQL, evt. værktøjer som Flyway (state-based).
 
 ## Setup
-
-1. Klon projektet:
+1. Kør seneste SQL script i `migrations/sql` for at bootstrappe databasen.
+2. Start API’et:
    ```bash
-   git clone https://github.com/Uguraz/DatabaseSchemaMigrations.git
-   cd DatabaseSchemaMigrations/src/StudentManagement.Api
+   dotnet run --project src/StudentManagement.Api
 
 ---
 
 ## Migrations-historik
-### InitialCreate
+### V1__InitialCreate.sql
 - Oprettede Students tabel
-### AddCoursesAndEnrollments
+### V2__AddCoursesAndEnrollments.sql
 - Tilføjede Courses og Enrollments tabeller
 - Mange-til-mange relation mellem Students ↔ Courses
-### AddDepartmentsAndInstructors
+### V3__AddDepartmentsAndInstructors.sql
 - Tilføjede Departments og Instructors tabeller
 - Seedede default værdier (General, TBD Instructor)
 - Tilføjede Foreign Keys til Courses
@@ -72,7 +76,7 @@ Projektet viser:
 ## Teknologier
 - .NET 8
 - ASP.NET Core Web API
-- Entity Framework Core 8
 - SQLite
+- SQL scripts (state-based migrations)
 - Swagger / OpenAPI
-- GitHub Flow (feature branches + Pull requests)
+- GitHub Flow (feature branches + PRs)
