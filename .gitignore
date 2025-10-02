@@ -1,0 +1,15 @@
+﻿@'
+# build artefakter
+src/**/bin/
+src/**/obj/
+
+# lokale databaser
+src/StudentManagement.Api/student.db
+
+# Rider/JetBrains filer
+.idea/
+
+# VS user-filer (hvis de skulle opstå)
+*.user
+*.suo
+'@ | Out-File -Encoding UTF8 -FilePath .gitignore
